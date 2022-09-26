@@ -3,8 +3,6 @@ package com.example.gamesnake;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -57,14 +55,6 @@ public class GameStage {
     private Stage rootStage;
 
     public GameStage(int height, int width) {
-        this.height = height;
-        this.width = width;
-        squareSize = width / rows;
-        canvas = new Canvas(width, height);
-    }
-
-    public GameStage(int height, int width, Stage stage) {
-        rootStage = stage;
         this.height = height;
         this.width = width;
         squareSize = width / rows;
@@ -171,13 +161,13 @@ public class GameStage {
 
     public void resetWindow() {
         Stage loseWindow = new Stage();
-        BorderPane winLayout = new BorderPane();
+        BorderPane loseLayout = new BorderPane();
         Text text = new Text("YOU LOSE!");
         Button button = new Button("Menu");
         Pane pane = new Pane();
         pane.getChildren().addAll(text, button);
-        winLayout.setCenter(pane);
-        Scene loseScene = new Scene(winLayout, 200, 100);
+        loseLayout.setCenter(pane);
+        Scene loseScene = new Scene(loseLayout, 200, 100);
         loseWindow.setResizable(false);
         loseWindow.setScene(loseScene);
         loseWindow.show();
@@ -187,13 +177,10 @@ public class GameStage {
         text.setLayoutX(75);
         text.setLayoutY(20);
 
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                loseWindow.close();
-                rootStage.show();
-                primaryStage.close();
-            }
+        button.setOnAction(event -> {
+            loseWindow.close();
+            rootStage.show();
+            primaryStage.close();
         });
     }
 
@@ -229,9 +216,7 @@ public class GameStage {
                 snakeHead.getY() * squareSize, squareSize - 1, squareSize - 1, 20, 30);
 
         for (int i = 1; i < snakeBody.size(); i++) {
-            if (i % 2 == 0) {
-                graphicsContext.setFill(Color.web("#2d130b"));
-            } else graphicsContext.setFill(Color.web("#2d130b"));
+            graphicsContext.setFill(Color.web("#2d130b"));
             graphicsContext.fillRoundRect(snakeBody.get(i).getX() * squareSize,
                     snakeBody.get(i).getY() * squareSize,
                     squareSize - 1, squareSize - 1, 10, 10);

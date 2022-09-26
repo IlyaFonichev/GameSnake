@@ -1,8 +1,6 @@
 package com.example.gamesnake;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,14 +35,11 @@ public class SnakeGame extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                gameStage = new GameStage(height, width);
-                gameStage.start();
-                gameStage.setRootStage(primaryStage);
-                primaryStage.close();
-            }
+        btn.setOnAction(event -> {
+            gameStage = new GameStage(height, width);
+            gameStage.start();
+            gameStage.setRootStage(primaryStage);
+            primaryStage.close();
         });
     }
 }
